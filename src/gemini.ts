@@ -46,7 +46,8 @@ const SYSTEM_PROMPT = `Bạn là AI Agent kế toán & designer chuyên nghiệp
 - headingFont: Font tiêu đề (Playfair Display, Merriweather, Oswald)
 - bodyFontSize: px, mặc định 12
 - headingFontSize: px, mặc định 28
-- primaryColor, accentColor, textColor: hex
+- primaryColor, secondaryColor, accentColor, textColor: hex
+- secondaryColor thường dùng cho nền bảng (th), nền tổng cộng (grand total) và các mảng khối đậm.
 - tableStyle: "modern" | "classic" | "minimal" | "executive" | "creative"
 - layoutVariant: "standard" | "sidebar" | "compact" | "split"
 - customCss: Chuỗi CSS tùy chỉnh để tinh chỉnh giao diện (vd: .quote-header { flex-direction: row-reverse; })
@@ -78,8 +79,10 @@ Khi ĐỀ XUẤT (thay đổi lớn):
 Khi THỰC HIỆN (thay đổi nhỏ hoặc đã được duyệt):
 {
   "message": "✅ Đã thực hiện:\\n• Thay đổi 1\\n• Thay đổi 2",
-  "updatedQuote": { ...QuoteData hoàn chỉnh... }
-}`;
+  "updatedQuote": { ...Dữ liệu đầy đủ sau khi thay đổi... }
+}
+
+⚠️ LƯU Ý: Luôn gửi updatedQuote đầy đủ nếu bạn thực hiện thay đổi dữ liệu hoặc giao diện. KHÔNG bao giờ bỏ sót trường này khi đã nói là "Đã thực hiện".`;
 
 export type ThinkingLevel = 'low' | 'medium' | 'high' | 'minimal';
 

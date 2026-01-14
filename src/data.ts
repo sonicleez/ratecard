@@ -88,6 +88,7 @@ export const initialQuoteData: QuoteData = {
         bodyFontSize: 12,
         headingFontSize: 28,
         primaryColor: '#FF4D00',
+        secondaryColor: '#1A1A1A',
         accentColor: '#FF7043',
         textColor: '#1A1A1A',
         tableStyle: 'modern',

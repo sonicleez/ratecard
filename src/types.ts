@@ -38,6 +38,7 @@ export interface StyleConfig {
 
   // Colors
   primaryColor: string;         // Main brand color (hex)
+  secondaryColor: string;       // Secondary color (usually dark/header background)
   accentColor: string;          // Accent color (hex)
   textColor: string;            // Body text color
 

@@ -390,6 +390,7 @@ const App: React.FC = () => {
 
     try {
       const response = await chatWithAI(apiKey, userMsg, data, files, model, thinking);
+      console.log('AI Full Response:', response);
       setMessages(prev => [...prev, { role: 'ai', content: response.message }]);
 
       if (response.updatedQuote) {
@@ -738,6 +739,8 @@ const App: React.FC = () => {
                   fontFamily: data.style?.fontFamily || 'Inter',
                   fontSize: `${data.style?.bodyFontSize || 12}px`,
                   color: data.style?.textColor || '#1A1A1A',
+                  '--primary': data.style?.primaryColor || '#FF4D00',
+                  '--secondary': data.style?.secondaryColor || '#1A1A1A',
                   '--primary-color': data.style?.primaryColor || '#FF4D00',
                   '--accent-color': data.style?.accentColor || '#FF7043',
                   '--heading-font': data.style?.headingFont || 'Plus Jakarta Sans',
