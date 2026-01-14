@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --primary: #FF4D00;
+  /* Matching the logo's orange accent */
+  --primary-glow: rgba(255, 77, 0, 0.2);
+  --secondary: #1A1A1A;
+  --accent: #FF7043;
+
+  --bg-main: #0F0F0F;
+  --bg-card: rgba(26, 26, 26, 0.7);
+  --bg-paper: #FFFFFF;
+
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0A0;
+  --text-dark: #1A1A1A;
+  --text-muted: #666666;
+
+  --border: rgba(255, 255, 255, 0.1);
+  --border-gold: rgba(193, 159, 95, 0.2);
+
+  --glass: rgba(255, 255, 255, 0.03);
+  --shadow-premium: 0 10px 40px rgba(0, 0, 0, 0.5);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.premium-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  background: radial-gradient(circle at top right, rgba(193, 159, 95, 0.05), transparent 40%),
+    radial-gradient(circle at bottom left, rgba(193, 159, 95, 0.03), transparent 40%);
+}
+
+/* Glassmorphism Classes */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  box-shadow: var(--shadow-premium);
+}
+
+.gold-border {
+  border: 1px solid var(--primary);
+}
+
+/* Page Setup for Printing */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .page-print {
+    width: 210mm;
+    height: 297mm;
+    padding: 20mm;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+  }
+}
+
+/* Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
