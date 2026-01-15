@@ -1401,6 +1401,7 @@ td {
   .app-layout {
     height: auto;
     min-height: 100vh;
+    flex-direction: column;
   }
 
   .inspector-panel {
@@ -1408,16 +1409,19 @@ td {
     max-height: none;
     height: auto;
     order: 1;
+    flex: none;
   }
 
   .preview-panel {
     order: 2;
     padding: 10px;
+    flex: 1;
   }
 
   .chat-container {
-    max-height: 300px;
-    min-height: 200px;
+    flex: none;
+    max-height: none;
+    min-height: auto;
   }
 
   .user-profile-bar {
