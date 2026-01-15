@@ -1498,9 +1498,30 @@ td {
   }
 
   .quote-wrapper {
-    transform: scale(0.6) !important;
-    transform-origin: top center;
-    margin-bottom: -40%;
+    transform: none !important;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+
+  .page-print {
+    min-width: 600px;
+    padding: 8mm 10mm;
+  }
+
+  .preview-panel {
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  /* Logo on mobile */
+  .brand-logo {
+    max-height: 60px;
+    max-width: 120px;
+  }
+
+  .brand-section {
+    min-width: 80px;
   }
 
   /* Meta grid on mobile */
@@ -1602,7 +1623,10 @@ td {
   }
 
   .quote-wrapper {
-    transform: scale(0.5) !important;
-    margin-bottom: -50%;
+    transform: none !important;
+  }
+
+  .page-print {
+    min-width: 550px;
   }
 }
