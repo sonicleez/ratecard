@@ -14,6 +14,8 @@
   display: flex;
   flex-direction: column;
   backdrop-filter: blur(20px);
+  overflow: hidden;
+  max-height: 100vh;
 }
 
 .preview-panel {
@@ -93,6 +95,8 @@
   padding: 20px;
   gap: 15px;
   overflow-y: auto;
+  min-height: 0;
+  max-height: calc(100vh - 280px);
 }
 
 .chat-bubble {
