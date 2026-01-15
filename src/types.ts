@@ -45,6 +45,7 @@ export interface StyleConfig {
   // Layout & Customization
   tableStyle: 'modern' | 'classic' | 'minimal' | 'executive' | 'creative';
   layoutVariant?: 'standard' | 'sidebar' | 'compact' | 'split';
+  metaGridColumns?: 2 | 4;      // Number of columns for meta info (customer, project, date, quote no)
   showLogo: boolean;
   paperSize: 'A4' | 'Letter';
   customCss?: string;           // AI can inject custom CSS for specific layout tweaks

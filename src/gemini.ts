@@ -62,6 +62,7 @@ const SYSTEM_PROMPT = `Bạn là AI Agent chuyên nghiệp về báo giá dịch
     "textColor": "#1A1A1A",
     "tableStyle": "modern",
     "layoutVariant": "standard",
+    "metaGridColumns": 2,
     "showLogo": true,
     "paperSize": "A4",
     "customCss": ""
@@ -71,6 +72,7 @@ const SYSTEM_PROMPT = `Bạn là AI Agent chuyên nghiệp về báo giá dịch
 🎨 STYLE OPTIONS:
 - tableStyle: "modern" | "classic" | "minimal" | "executive" | "creative"
 - layoutVariant: "standard" | "sidebar" | "compact" | "split"
+- metaGridColumns: 2 hoặc 4 (số cột hiển thị thông tin khách hàng, dự án, ngày, số báo giá)
 - customCss: CSS tùy chỉnh, ví dụ: ".quote-header { background: #f5f5f5; }"
 
 📤 CÁCH TRẢ LỜI (BẮT BUỘC THEO ĐÚNG FORMAT):

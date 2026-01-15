@@ -806,7 +806,14 @@ const App: React.FC = () => {
                     <p className="quote-subtitle">DỊCH VỤ SẢN XUẤT VIDEO MARKETING & AI VISUAL</p>
                   </section>
 
-                  <section className="meta-grid-new">
+                  <section
+                    className="meta-grid-new"
+                    style={{
+                      gridTemplateColumns: data.style?.metaGridColumns === 4
+                        ? '1.2fr 1.2fr 1fr 1fr'
+                        : '1fr 1fr'
+                    }}
+                  >
                     <div className="meta-item">
                       <label>KÍNH GỬI KHÁCH HÀNG</label>
                       <strong
