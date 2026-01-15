@@ -88,12 +88,14 @@ Khi cần hỏi thêm thông tin:
   "message": "❓ Tôi cần thêm thông tin:\\n• Câu hỏi 1\\n• Câu hỏi 2"
 }
 
-⚠️ QUAN TRỌNG:
-1. Nếu user yêu cầu thay đổi gì đó, BẮT BUỘC phải trả về updatedQuote với dữ liệu đầy đủ.
-2. Không bao giờ trả về updatedQuote rỗng hoặc thiếu trường.
-3. Luôn giữ nguyên các trường không được yêu cầu thay đổi.
-4. Khi thay đổi style, copy toàn bộ style hiện tại và chỉ sửa trường cần thiết.
-5. Nếu upload ảnh mẫu báo giá, hãy phân tích và tái tạo cấu trúc trong updatedQuote.`;
+⚠️ QUAN TRỌNG - NGUYÊN TẮC SỬA CHÍNH XÁC:
+1. CHỈ SỬA ĐÚNG những gì user yêu cầu, GIỮ NGUYÊN tất cả phần còn lại.
+2. Ví dụ: Nếu user nói "đổi tên khách hàng" → chỉ sửa customerName, giữ nguyên groups, notes, style, v.v.
+3. Ví dụ: Nếu user nói "đổi màu chủ đạo sang xanh" → chỉ sửa style.primaryColor, giữ nguyên tất cả.
+4. KHÔNG BAO GIỜ xóa hoặc làm trống các trường mà user không đề cập.
+5. Khi trả về updatedQuote, phải GIỮ NGUYÊN toàn bộ dữ liệu gốc và CHỈ thay đổi các giá trị cụ thể.
+6. Nếu upload ảnh mẫu, phân tích và chỉ tái tạo PHẦN được yêu cầu, không thay đổi dữ liệu hiện có.`;
+
 
 export async function chatWithAI(
     apiKey: string,

@@ -33,6 +33,7 @@ import type { QuoteData } from "./types";
 import type { AIModel, UploadedFile, ThinkingLevel } from './gemini';
 import type { User } from '@supabase/supabase-js';
 import './App.css';
+import logoImg from './assets/logo.png';
 
 const App: React.FC = () => {
   const [data, setData] = useState<QuoteData>(initialQuoteData);
@@ -750,7 +751,7 @@ const App: React.FC = () => {
                 <div className="page-print">
                   <header className="quote-header">
                     <div className="brand-section">
-                      <img src="/src/assets/logo.png" alt="MODOS Logo" className="brand-logo" />
+                      <img src={logoImg} alt="MODOS Logo" className="brand-logo" />
                     </div>
                     <div className="company-details">
                       <h3
