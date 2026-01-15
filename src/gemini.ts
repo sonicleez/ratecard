@@ -7,6 +7,7 @@ export interface AIResponse {
 }
 
 export type AIModel = 'flash' | 'pro';
+export type ThinkingLevel = 'low' | 'medium' | 'high' | 'minimal';
 
 export interface UploadedFile {
     name: string;
@@ -15,76 +16,82 @@ export interface UploadedFile {
     preview?: string;
 }
 
-const SYSTEM_PROMPT = `Bạn là AI Agent kế toán & designer chuyên nghiệp, chuyên về báo giá dịch vụ sản xuất video và creative services.
+const SYSTEM_PROMPT = `Bạn là AI Agent chuyên nghiệp về báo giá dịch vụ sản xuất video và creative services.
 
-⚠️ QUY TẮC QUAN TRỌNG - ĐỀ XUẤT TRƯỚC KHI LÀM:
-- Khi user yêu cầu thay đổi LỚN, hãy ĐỀ XUẤT ý tưởng trước
-- Chỉ thực hiện khi user nói "ok", "đồng ý", "duyệt", "làm đi", "approved"
-- Thay đổi NHỎ như sửa text, thay số có thể làm ngay
-- Nếu đề xuất thì KHÔNG gửi updatedQuote, chỉ gửi message mô tả ý tưởng
+🎯 NHIỆM VỤ CHÍNH: Khi user yêu cầu thay đổi, bạn PHẢI trả về updatedQuote chứa DỮ LIỆU ĐẦY ĐỦ đã được sửa đổi.
 
-📋 PHÂN LOẠI YÊU CẦU:
-
-🟢 LÀM NGAY (không cần duyệt):
-- Sửa tên, số điện thoại, email
-- Thay đổi giá một item
-- Thêm/xóa một item đơn giản
-- Đổi font, màu sắc, cỡ chữ
-
-🟡 ĐỀ XUẤT TRƯỚC (cần duyệt):
-- Thay đổi cấu trúc toàn bộ báo giá
-- Thêm/xóa nhiều nhóm dịch vụ
-- Tái thiết kế layout từ hình ảnh
-- Thay đổi chiến lược giá lớn (tăng/giảm > 10%)
-- Đề xuất bundle, package mới
-
-📊 DỮ LIỆU HIỆN TẠI:
+📊 DỮ LIỆU HIỆN TẠI CỦA BÁO GIÁ:
 {DATA}
 
-🔤 STYLE & TYPOGRAPHY:
-- fontFamily: Google Font (Roboto, Open Sans, Montserrat, Poppins, Lato, Nunito)
-- headingFont: Font tiêu đề (Playfair Display, Merriweather, Oswald)
-- bodyFontSize: px, mặc định 12
-- headingFontSize: px, mặc định 28
-- primaryColor, secondaryColor, accentColor, textColor: hex
-- secondaryColor thường dùng cho nền bảng (th), nền tổng cộng (grand total) và các mảng khối đậm.
+🔧 CẤU TRÚC DỮ LIỆU (QuoteData):
+{
+  "quoteNo": "QT-2026-XXX",
+  "date": "DD/MM/YYYY",
+  "customerName": "Tên khách hàng",
+  "companyName": "Tên công ty khách",
+  "projectName": "Tên dự án",
+  "quoteTitle": "BẢNG BÁO GIÁ",
+  "subtitle": "Mô tả ngắn",
+  "companyInfo": { "name": "", "taxId": "", "address": "", "email": "", "phone": "" },
+  "groups": [
+    {
+      "id": "01",
+      "title": "TÊN NHÓM DỊCH VỤ",
+      "subtitle": "Mô tả nhóm",
+      "items": [
+        { "no": 1, "description": "Mô tả item", "unit": "Gói", "quantity": 1, "unitPrice": 10000000, "total": 10000000 }
+      ],
+      "subtotal": 10000000
+    }
+  ],
+  "totalQuote": 10000000,
+  "vat": 1000000,
+  "grandTotal": 11000000,
+  "notes": ["Ghi chú 1", "Ghi chú 2"],
+  "bankInfo": { "bankName": "", "accountNo": "", "accountName": "" },
+  "customerRep": { "title": "ĐẠI DIỆN KHÁCH HÀNG", "name": "" },
+  "companyRep": { "title": "ĐẠI DIỆN CÔNG TY", "name": "" },
+  "style": {
+    "fontFamily": "Inter",
+    "headingFont": "Plus Jakarta Sans",
+    "bodyFontSize": 12,
+    "headingFontSize": 28,
+    "primaryColor": "#FF4D00",
+    "secondaryColor": "#1A1A1A",
+    "accentColor": "#FF7043",
+    "textColor": "#1A1A1A",
+    "tableStyle": "modern",
+    "layoutVariant": "standard",
+    "showLogo": true,
+    "paperSize": "A4",
+    "customCss": ""
+  }
+}
+
+🎨 STYLE OPTIONS:
 - tableStyle: "modern" | "classic" | "minimal" | "executive" | "creative"
 - layoutVariant: "standard" | "sidebar" | "compact" | "split"
-- customCss: Chuỗi CSS tùy chỉnh để tinh chỉnh giao diện (vd: .quote-header { flex-direction: row-reverse; })
-- Nếu user upload mẫu ảnh, hãy dùng customCss để mô phỏng lại layout đó chính xác nhất có thể.
+- customCss: CSS tùy chỉnh, ví dụ: ".quote-header { background: #f5f5f5; }"
 
-📄 NỘI DUNG:
-- quoteTitle, quoteNo, date, projectName
-- customerName, companyName
-- companyInfo: {name, taxId, address, email, phone}
-- groups: [{id, title, subtitle, items: [{description, unit, quantity, unitPrice}]}]
-- notes: string[]
-- bankInfo: {bankName, accountNo, accountName}
-- customerRep, companyRep: {title, name}
+📤 CÁCH TRẢ LỜI (BẮT BUỘC THEO ĐÚNG FORMAT):
 
-🔧 QUY TẮC TÍNH TOÁN:
-- item.total = quantity * unitPrice
-- group.subtotal = sum(items.total)
-- totalQuote = sum(groups.subtotal)
-- vat = totalQuote * 0.1
-- grandTotal = totalQuote + vat
-
-📤 OUTPUT FORMAT:
-
-Khi ĐỀ XUẤT (thay đổi lớn):
+Khi thực hiện thay đổi:
 {
-  "message": "💡 ĐỀ XUẤT:\\n• Ý tưởng 1\\n• Ý tưởng 2\\n\\nBạn có đồng ý không?"
+  "message": "✅ Đã thực hiện:\\n• Thay đổi A\\n• Thay đổi B",
+  "updatedQuote": { ...toàn bộ QuoteData đã được sửa... }
 }
 
-Khi THỰC HIỆN (thay đổi nhỏ hoặc đã được duyệt):
+Khi cần hỏi thêm thông tin:
 {
-  "message": "✅ Đã thực hiện:\\n• Thay đổi 1\\n• Thay đổi 2",
-  "updatedQuote": { ...Dữ liệu đầy đủ sau khi thay đổi... }
+  "message": "❓ Tôi cần thêm thông tin:\\n• Câu hỏi 1\\n• Câu hỏi 2"
 }
 
-⚠️ LƯU Ý: Luôn gửi updatedQuote đầy đủ nếu bạn thực hiện thay đổi dữ liệu hoặc giao diện. KHÔNG bao giờ bỏ sót trường này khi đã nói là "Đã thực hiện".`;
-
-export type ThinkingLevel = 'low' | 'medium' | 'high' | 'minimal';
+⚠️ QUAN TRỌNG:
+1. Nếu user yêu cầu thay đổi gì đó, BẮT BUỘC phải trả về updatedQuote với dữ liệu đầy đủ.
+2. Không bao giờ trả về updatedQuote rỗng hoặc thiếu trường.
+3. Luôn giữ nguyên các trường không được yêu cầu thay đổi.
+4. Khi thay đổi style, copy toàn bộ style hiện tại và chỉ sửa trường cần thiết.
+5. Nếu upload ảnh mẫu báo giá, hãy phân tích và tái tạo cấu trúc trong updatedQuote.`;
 
 export async function chatWithAI(
     apiKey: string,
@@ -96,7 +103,7 @@ export async function chatWithAI(
 ): Promise<AIResponse> {
     const genAI = new GoogleGenerativeAI(apiKey);
 
-    // Gemini 3 models (latest series as of 2026)
+    // Gemini 3 models
     const modelName = model === 'pro'
         ? 'gemini-3-pro-preview'
         : 'gemini-3-flash-preview';
@@ -108,17 +115,19 @@ export async function chatWithAI(
         generationConfig: {
             responseMimeType: "application/json",
             temperature: temperature,
-            // @ts-ignore - Support for latest Gemini 3 thinking config
+            // @ts-ignore - Gemini 3 thinking config
             thinkingConfig: {
                 thinkingLevel: thinkingLevel,
             }
         }
     });
 
-    const contextualSystemPrompt = SYSTEM_PROMPT.replace("{DATA}", JSON.stringify(currentData, null, 2));
+    // Replace placeholder with actual data
+    const contextualPrompt = SYSTEM_PROMPT.replace("{DATA}", JSON.stringify(currentData, null, 2));
 
-    const parts: any[] = [{ text: contextualSystemPrompt + "\n\n👤 YÊU CẦU: " + userMessage }];
+    const parts: any[] = [{ text: contextualPrompt + "\n\n👤 YÊU CẦU CỦA USER: " + userMessage }];
 
+    // Add uploaded files
     for (const file of files) {
         if (file.type.startsWith('image/') || file.type === 'application/pdf') {
             parts.push({
@@ -130,30 +139,54 @@ export async function chatWithAI(
         }
     }
 
+    console.log('Sending to Gemini:', userMessage);
+
     const result = await aiModel.generateContent(parts);
     const responseText = result.response.text();
+
+    console.log('Raw Gemini Response:', responseText);
 
     try {
         const parsed = JSON.parse(responseText) as AIResponse;
 
         if (parsed.updatedQuote) {
+            // Merge with current data to ensure no fields are missing
+            parsed.updatedQuote = mergeQuoteData(currentData, parsed.updatedQuote);
             recalculateQuote(parsed.updatedQuote);
         }
 
         return parsed;
     } catch (e) {
+        // Try to extract JSON from markdown code block
         const jsonMatch = responseText.match(/```json\n?([\s\S]*?)\n?```/);
         if (jsonMatch) {
             try {
                 const parsed = JSON.parse(jsonMatch[1]) as AIResponse;
                 if (parsed.updatedQuote) {
+                    parsed.updatedQuote = mergeQuoteData(currentData, parsed.updatedQuote);
                     recalculateQuote(parsed.updatedQuote);
                 }
                 return parsed;
             } catch { }
         }
+        console.error('Failed to parse AI response:', e);
         return { message: responseText };
     }
+}
+
+// Merge AI response with current data to ensure completeness
+function mergeQuoteData(current: QuoteData, updated: Partial<QuoteData>): QuoteData {
+    return {
+        ...current,
+        ...updated,
+        companyInfo: { ...current.companyInfo, ...(updated.companyInfo || {}) },
+        bankInfo: { ...current.bankInfo, ...(updated.bankInfo || {}) },
+        customerRep: { ...current.customerRep, ...(updated.customerRep || {}) },
+        companyRep: { ...current.companyRep, ...(updated.companyRep || {}) },
+        style: { ...current.style, ...(updated.style || {}) } as any,
+        groups: updated.groups || current.groups,
+        notes: updated.notes || current.notes,
+    };
 }
 
 function recalculateQuote(quote: QuoteData) {
