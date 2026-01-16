@@ -920,7 +920,7 @@
 .price-cell {
   font-size: 11px;
   font-weight: 700;
-  color: var(--secondary);
+  color: #1A1A1A;
 }
 
 /* Editable Preview */
@@ -1020,7 +1020,7 @@ td {
 }
 
 .total-line.grand {
-  background: var(--secondary);
+  background: #FF4D00;
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
@@ -1030,7 +1030,7 @@ td {
 .final-price {
   font-size: 16px;
   font-weight: 900;
-  color: var(--primary);
+  color: #FF4D00;
 }
 
 /* Stamp */
