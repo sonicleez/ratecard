@@ -611,8 +611,8 @@
 
 .divider {
   height: 2px;
-  background: linear-gradient(90deg, var(--secondary), var(--primary), var(--secondary));
-  margin: 20px 0;
+  background: linear-gradient(90deg, #1A1A1A, #FF4D00, #1A1A1A);
+  margin: 15px 0;
 }
 
 .title-area {
@@ -621,9 +621,11 @@
 }
 
 .title-area h1 {
-  font-size: 22px;
-  color: var(--secondary);
-  margin-bottom: 10px;
+  font-size: 20px;
+  color: #1A1A1A !important;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
 .project-badge {
@@ -657,10 +659,10 @@
 
 /* New Quote Layout Styles */
 .quote-subtitle {
-  font-size: 11px;
-  color: var(--text-muted);
+  font-size: 10px;
+  color: #666 !important;
   letter-spacing: 1px;
-  margin-top: 5px;
+  margin-top: 4px;
 }
 
 .meta-grid-new {
@@ -714,14 +716,14 @@
 
 .meta-grid-new .meta-item strong {
   font-size: 13px;
-  color: var(--secondary);
+  color: #1A1A1A !important;
   font-weight: 700;
   white-space: nowrap;
 }
 
 .meta-grid-new .meta-item:last-child strong {
-  color: var(--primary);
-  border: 1px solid var(--primary);
+  color: #FF4D00 !important;
+  border: 1px solid #FF4D00 !important;
   padding: 4px 10px;
   border-radius: 4px;
   display: inline-block;
@@ -1039,9 +1041,10 @@ td {
 }
 
 .final-price {
-  font-size: 18px;
+  font-size: 14px;
   font-weight: 900;
   color: #FFF !important;
+  white-space: nowrap;
 }
 
 /* Stamp */
@@ -1081,13 +1084,31 @@ td {
 .signatures {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
-  font-size: 9px;
+  margin-top: 30px;
+  font-size: 10px;
 }
 
 .sign-block {
   text-align: center;
   width: 150px;
+}
+
+.sign-block p {
+  margin: 0;
+  font-weight: 700;
+  color: #1A1A1A;
+  text-transform: uppercase;
+}
+
+.sign-block strong {
+  display: block;
+  margin-top: 40px;
+  font-size: 10px;
+  color: #1A1A1A;
+}
+
+.sign-space {
+  height: 0;
 }
 
 @media print {

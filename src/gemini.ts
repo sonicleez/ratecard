@@ -151,7 +151,10 @@ Nguyên tắc:
 4. GIỮ NGUYÊN các trường không liên quan đến yêu cầu.
 5. Sau khi sửa, các số tổng sẽ được tính lại tự động.
 6. KHÔNG BAO GIỜ gộp các dòng riêng lẻ thành 1 nhóm chung.
-7. Giữ nguyên CHÍNH XÁC tên mô tả mà user cung cấp.`;
+7. Giữ nguyên CHÍNH XÁC tên mô tả mà user cung cấp.
+8. KHÔNG ĐƯỢC thay đổi primaryColor (#FF4D00) và secondaryColor (#1A1A1A) - đây là màu thương hiệu bắt buộc.
+9. Giữ bodyFontSize khoảng 12px và headingFontSize khoảng 28px để đảm bảo layout A4.`;
+
 
 
 
@@ -236,9 +239,8 @@ export async function chatWithAI(
     }
 }
 
-// Merge AI response with current data to ensure completeness
 function mergeQuoteData(current: QuoteData, updated: Partial<QuoteData>): QuoteData {
-    return {
+    const merged = {
         ...current,
         ...updated,
         companyInfo: { ...current.companyInfo, ...(updated.companyInfo || {}) },
@@ -249,6 +251,17 @@ function mergeQuoteData(current: QuoteData, updated: Partial<QuoteData>): QuoteD
         groups: updated.groups || current.groups,
         notes: updated.notes || current.notes,
     };
+
+    // Force brand safety
+    if (merged.style) {
+        merged.style.primaryColor = '#FF4D00';
+        merged.style.secondaryColor = '#1A1A1A';
+        // Prevent huge fonts unless requested
+        if (merged.style.bodyFontSize > 16) merged.style.bodyFontSize = 12;
+        if (merged.style.headingFontSize > 40) merged.style.headingFontSize = 28;
+    }
+
+    return merged;
 }
 
 function recalculateQuote(quote: QuoteData) {
