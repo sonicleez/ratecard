@@ -584,7 +584,7 @@
 }
 
 .page-print {
-  padding: 10mm 15mm;
+  padding: 8mm 12mm;
   min-height: auto;
   background: #ffffff !important;
   color: #1A1A1A !important;
@@ -595,7 +595,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
 }
 
 .brand-logo {
@@ -657,20 +657,20 @@
 
 /* New Quote Layout Styles */
 .quote-subtitle {
-  font-size: 14px;
+  font-size: 11px;
   color: var(--text-muted);
   letter-spacing: 1px;
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
 .meta-grid-new {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 15px 30px;
-  margin-bottom: 30px;
-  padding: 20px;
+  gap: 10px 20px;
+  margin-bottom: 15px;
+  padding: 12px 15px;
   background: #fcfcfc;
-  border-radius: 12px;
+  border-radius: 8px;
   border: 1px solid #eee;
 }
 
@@ -734,11 +734,11 @@
 }
 
 .quote-table-new th {
-  background: var(--secondary);
+  background: #1A1A1A;
   color: white;
-  padding: 8px 8px;
+  padding: 6px 8px;
   text-align: left;
-  font-size: 9px;
+  font-size: 8px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -765,14 +765,14 @@
 }
 
 .group-row-new td {
-  padding: 10px 8px;
+  padding: 6px 8px;
   vertical-align: top;
 }
 
 .group-row-new .group-no {
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 700;
-  color: var(--secondary);
+  color: #1A1A1A;
 }
 
 .group-title-cell {
@@ -782,9 +782,9 @@
 }
 
 .group-title-cell strong {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 700;
-  color: var(--secondary);
+  color: #1A1A1A;
   text-transform: uppercase;
 }
 
