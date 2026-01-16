@@ -116,22 +116,41 @@ Khi cần hỏi thêm thông tin:
 - total sẽ được tính tự động (quantity * unitPrice)
 
 📥 NHẬP DỮ LIỆU MỚI TỪ SPREADSHEET/BẢNG:
-- Khi user gửi dữ liệu dạng bảng (từ Excel, Google Sheet), hãy tạo TỪNG DÒNG thành MỘT ITEM RIÊNG BIỆT.
-- KHÔNG được gộp hoặc tổng hợp các dòng lại với nhau.
-- KHÔNG được tự ý đổi tên hoặc rút gọn mô tả.
-- Ví dụ user gửi:
-  | App feature tutorials | 6 | 7,700,000 | 46,200,000 |
-  | Company intro | 1 | 33,000,000 | 33,000,000 |
-  → Phải tạo 2 items riêng biệt, KHÔNG gộp thành 1.
-- Nếu dữ liệu không có nhóm rõ ràng, đặt tất cả vào 1 group với title phù hợp.
+
+🚨 QUAN TRỌNG NHẤT - ĐỌC KỸ:
+Khi user gửi danh sách như:
+  App feature tutorials | 6 | 7,700,000đ | 46,200,000đ
+  Company introduction | 1 | 33,000,000đ | 33,000,000đ
+  User behavior | 4 | 8,000,000đ | 32,000,000đ
+  Voice talent | 1 | 8,000,000đ | 8,000,000đ
+
+Bạn PHẢI tạo 4 GROUPS riêng biệt (hoặc 4 items trong 1 group), KHÔNG ĐƯỢC gộp thành 1 group với tổng tiền gộp.
+
+✅ ĐÚNG - Tạo nhiều groups/items riêng biệt:
+"groups": [
+  { "id": "01", "title": "APP FEATURE TUTORIALS", "items": [...], "subtotal": 46200000 },
+  { "id": "02", "title": "COMPANY INTRODUCTION", "items": [...], "subtotal": 33000000 },
+  { "id": "03", "title": "USER BEHAVIOR", "items": [...], "subtotal": 32000000 },
+  { "id": "04", "title": "VOICE TALENT", "items": [...], "subtotal": 8000000 }
+]
+
+❌ SAI - KHÔNG BAO GIỜ làm thế này:
+"groups": [
+  { "id": "01", "title": "VIDEO PRODUCTION SERVICES", "items": [item1, item2, item3, item4], "subtotal": 119200000 }
+]
+
+Nguyên tắc:
+- Mỗi dòng trong bảng = 1 GROUP riêng biệt (nếu có giá riêng)
+- Giữ nguyên CHÍNH XÁC tên mô tả, KHÔNG đổi tên, KHÔNG rút gọn
+- Giữ nguyên số lượng, đơn giá, thành tiền như user cung cấp
 
 ⚠️ NGUYÊN TẮC BẮT BUỘC:
-1. LUÔN trả về updatedQuote đầy đủ với TẤT CẢ các groups, kể cả những group không thay đổi.
+1. LUÔN trả về updatedQuote đầy đủ với TẤT CẢ các groups.
 2. Khi xóa subtitle → đặt = "" (không phải null hoặc undefined).
 3. Khi xóa item/group → loại bỏ khỏi mảng, KHÔNG để null.
 4. GIỮ NGUYÊN các trường không liên quan đến yêu cầu.
-5. Sau khi sửa, các số tổng (subtotal, totalQuote, vat, grandTotal) sẽ được tính lại tự động.
-6. KHÔNG BAO GIỜ gộp/tổng hợp các items lại với nhau trừ khi user yêu cầu rõ ràng.
+5. Sau khi sửa, các số tổng sẽ được tính lại tự động.
+6. KHÔNG BAO GIỜ gộp các dòng riêng lẻ thành 1 nhóm chung.
 7. Giữ nguyên CHÍNH XÁC tên mô tả mà user cung cấp.`;
 
 

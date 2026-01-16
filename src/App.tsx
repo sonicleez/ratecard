@@ -79,11 +79,15 @@ const App: React.FC = () => {
     return () => subscription.unsubscribe();
   }, []);
 
-  // Fetch System API Key and Latest Quote Number
+  // Fetch System API Key and Latest Quote Number + Update Date
   useEffect(() => {
     if (user) {
       fetchSystemKey();
       fetchLatestQuoteNo();
+      // Auto-update date to today
+      const today = new Date();
+      const formattedDate = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear()}`;
+      setData(prev => ({ ...prev, date: formattedDate }));
     }
   }, [user]);
 
