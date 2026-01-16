@@ -418,20 +418,28 @@ const App: React.FC = () => {
 
     const html2pdf = (await import('html2pdf.js')).default;
 
+    // Hide all no-print elements before generating PDF
+    const noPrintElements = element.querySelectorAll('.no-print');
+    noPrintElements.forEach(el => (el as HTMLElement).style.display = 'none');
+
     const opt = {
-      margin: [3, 3, 3, 3] as [number, number, number, number],
+      margin: [5, 5, 5, 5] as [number, number, number, number],
       filename: `${data.quoteNo || 'BaoGia'}_${data.projectName?.replace(/\s+/g, '_') || 'Quote'}.pdf`,
       image: { type: 'png' as const, quality: 1 },
       html2canvas: {
-        scale: 3,
+        scale: 2,
         useCORS: true,
         logging: false,
         backgroundColor: '#ffffff'
       },
-      jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const }
+      jsPDF: { unit: 'mm' as const, format: 'a4' as const, orientation: 'portrait' as const },
+      pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
     };
 
-    html2pdf().set(opt).from(element).save();
+    await html2pdf().set(opt).from(element).save();
+
+    // Restore no-print elements after PDF generation
+    noPrintElements.forEach(el => (el as HTMLElement).style.display = '');
 
     // Save to DB and increment
     await saveQuotationToDB();

@@ -1727,3 +1727,34 @@ td {
     min-width: 550px;
   }
 }
+
+/* Print and PDF export styles */
+
+@media print {
+
+  .no-print,
+  .floating-actions,
+  .add-item-btn,
+  .add-group-btn,
+  .delete-group-btn,
+  .delete-item-btn,
+  .clear-subtitle-btn {
+    display: none !important;
+  }
+
+  .page-print {
+    page-break-inside: avoid;
+  }
+
+  .group-row-new {
+    page-break-inside: avoid;
+  }
+
+  .summary-section {
+    page-break-inside: avoid;
+  }
+
+  .signatures {
+    page-break-inside: avoid;
+  }
+}
