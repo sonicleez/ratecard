@@ -2,8 +2,8 @@ import React from 'react';
 import {
     Sparkles, Settings, History, Loader2, Upload, FileType, X, Send
 } from 'lucide-react';
-import { User } from '@supabase/supabase-js';
-import { AIModel, ThinkingLevel, UploadedFile } from '../../gemini';
+import type { User } from '@supabase/supabase-js';
+import type { AIModel, ThinkingLevel, UploadedFile } from '../../gemini';
 
 interface InspectorPanelProps {
     user: User;
@@ -25,8 +25,8 @@ interface InspectorPanelProps {
     setShowSettingsModal: (show: boolean) => void;
     fetchQuotesList: () => void;
     setShowQuotesList: (show: boolean) => void;
-    fileInputRef: React.RefObject<HTMLInputElement>;
-    chatEndRef: React.RefObject<HTMLDivElement>;
+    fileInputRef: React.RefObject<HTMLInputElement | null>;
+    chatEndRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const InspectorPanel: React.FC<InspectorPanelProps> = ({

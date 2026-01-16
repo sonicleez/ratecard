@@ -1,13 +1,13 @@
 import React from 'react';
 import { Share2, Image as ImageIcon, Download, Printer } from 'lucide-react';
 import { QuoteDocument } from './QuoteDocument';
-import { QuoteData } from '../../types';
+import type { QuoteData } from '../../types';
 
 interface PreviewPanelProps {
     data: QuoteData;
     setData: (d: QuoteData) => void;
     scale: number;
-    previewRef: React.RefObject<HTMLDivElement>;
+    previewRef: React.RefObject<HTMLDivElement | null>;
     handleShare: () => void;
     handleDownloadPNG: () => void;
     handleDownloadPDF: () => void;

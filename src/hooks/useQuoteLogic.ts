@@ -1,6 +1,5 @@
-import { QuoteData } from '../types';
+import type { QuoteData } from '../types';
 import { supabase } from '../supabase';
-import { formatCurrency } from '../utils';
 
 export const useQuoteLogic = (
     data: QuoteData,
