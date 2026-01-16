@@ -358,9 +358,9 @@ export const QuoteDocument: React.FC<QuoteDocumentProps> = ({
                         </div>
                         <div className="total-line grand">
                             <span>TỔNG CỘNG THANH TOÁN:</span>
-                            <div className="final-price">
-                                {formatCurrency(data.grandTotal)} <small>VND</small>
-                            </div>
+                            <strong className="final-price">
+                                {formatCurrency(data.grandTotal)} VND
+                            </strong>
                         </div>
                     </div>
                 </section>
