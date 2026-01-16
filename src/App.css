@@ -820,6 +820,103 @@
   font-weight: bold;
 }
 
+.scope-item {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.scope-item::before {
+  display: none;
+}
+
+/* Delete and Add buttons */
+.delete-group-btn,
+.delete-item-btn,
+.clear-subtitle-btn {
+  display: none;
+  background: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+  margin-left: 4px;
+  padding: 0;
+  transition: all 0.2s;
+}
+
+.clear-subtitle-btn {
+  background: #666;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.group-row-new:hover .delete-group-btn,
+.group-title-cell:hover .clear-subtitle-btn,
+.scope-item:hover .delete-item-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-group-btn:hover,
+.delete-item-btn:hover {
+  background: #cc0000;
+  transform: scale(1.1);
+}
+
+.clear-subtitle-btn:hover {
+  background: #444;
+}
+
+.add-item-btn {
+  background: transparent;
+  border: 1px dashed var(--primary);
+  color: var(--primary);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.add-item-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.add-item-row {
+  margin-top: 4px;
+}
+
+.add-item-row::before {
+  display: none !important;
+}
+
+.add-group-btn {
+  display: block;
+  width: 100%;
+  margin-top: 15px;
+  padding: 10px;
+  background: transparent;
+  border: 2px dashed var(--primary);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.add-group-btn:hover {
+  background: var(--primary);
+  color: white;
+}
+
 .price-cell {
   font-size: 11px;
   font-weight: 700;

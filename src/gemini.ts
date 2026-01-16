@@ -88,13 +88,40 @@ Khi cần hỏi thêm thông tin:
   "message": "❓ Tôi cần thêm thông tin:\\n• Câu hỏi 1\\n• Câu hỏi 2"
 }
 
-⚠️ QUAN TRỌNG - NGUYÊN TẮC SỬA CHÍNH XÁC:
-1. CHỈ SỬA ĐÚNG những gì user yêu cầu, GIỮ NGUYÊN tất cả phần còn lại.
-2. Ví dụ: Nếu user nói "đổi tên khách hàng" → chỉ sửa customerName, giữ nguyên groups, notes, style, v.v.
-3. Ví dụ: Nếu user nói "đổi màu chủ đạo sang xanh" → chỉ sửa style.primaryColor, giữ nguyên tất cả.
-4. KHÔNG BAO GIỜ xóa hoặc làm trống các trường mà user không đề cập.
-5. Khi trả về updatedQuote, phải GIỮ NGUYÊN toàn bộ dữ liệu gốc và CHỈ thay đổi các giá trị cụ thể.
-6. Nếu upload ảnh mẫu, phân tích và chỉ tái tạo PHẦN được yêu cầu, không thay đổi dữ liệu hiện có.`;
+🔥 HƯỚNG DẪN CHI TIẾT CHO TỪNG LOẠI THAO TÁC:
+
+📝 XÓA SUBTITLE CỦA NHÓM:
+- Nếu user nói "xóa subtitle" hoặc "xóa mô tả nhóm" hoặc "xóa Giai đoạn tiền kỳ"
+- Đặt group.subtitle = "" (chuỗi rỗng)
+- Ví dụ: groups[0].subtitle = ""
+
+📝 XÓA MỘT ITEM TRONG NHÓM:
+- Nếu user nói "xóa item X" hoặc "xóa dòng có mô tả Y"
+- Loại bỏ item đó khỏi mảng group.items
+- Ví dụ: groups[0].items = groups[0].items.filter(item => item.description !== "X")
+
+📝 XÓA MỘT NHÓM DỊCH VỤ:
+- Nếu user nói "xóa nhóm X" hoặc "xóa phần AUDIO ENGINEERING"
+- Loại bỏ group đó khỏi mảng groups
+- Ví dụ: groups = groups.filter(g => g.title !== "AUDIO ENGINEERING")
+
+📝 THÊM ITEM MỚI:
+- Thêm object item mới vào group.items với đầy đủ các trường: no, description, unit, quantity, unitPrice, total
+
+📝 THÊM NHÓM MỚI:
+- Thêm object group mới vào mảng groups với đầy đủ: id, title, subtitle, items, subtotal
+
+📝 SỬA GIÁ/SỐ LƯỢNG:
+- Cập nhật unitPrice hoặc quantity của item cụ thể
+- total sẽ được tính tự động (quantity * unitPrice)
+
+⚠️ NGUYÊN TẮC BẮT BUỘC:
+1. LUÔN trả về updatedQuote đầy đủ với TẤT CẢ các groups, kể cả những group không thay đổi.
+2. Khi xóa subtitle → đặt = "" (không phải null hoặc undefined).
+3. Khi xóa item/group → loại bỏ khỏi mảng, KHÔNG để null.
+4. GIỮ NGUYÊN các trường không liên quan đến yêu cầu.
+5. Sau khi sửa, các số tổng (subtotal, totalQuote, vat, grandTotal) sẽ được tính lại tự động.`;
+
 
 
 export async function chatWithAI(

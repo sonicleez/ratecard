@@ -874,7 +874,17 @@ const App: React.FC = () => {
                       <tbody>
                         {data.groups.map((group, gIdx) => (
                           <tr key={group.id} className="group-row-new">
-                            <td className="text-center group-no">{group.id}</td>
+                            <td className="text-center group-no">
+                              {group.id}
+                              <button
+                                className="delete-group-btn no-print"
+                                onClick={() => {
+                                  const newGroups = data.groups.filter((_, i) => i !== gIdx);
+                                  setData({ ...data, groups: newGroups });
+                                }}
+                                title="Xóa nhóm này"
+                              >×</button>
+                            </td>
                             <td className="group-title-cell">
                               <strong
                                 contentEditable
@@ -888,30 +898,76 @@ const App: React.FC = () => {
                               >
                                 {group.title}
                               </strong>
-                              <span className="group-subtitle">
-                                {gIdx === 0 && 'Giai đoạn tiền kỳ'}
-                                {gIdx === 1 && 'Thiết kế & Công nghệ'}
-                                {gIdx === 2 && 'Giai đoạn sản xuất'}
-                                {gIdx === 3 && 'Âm thanh & Hậu kỳ'}
-                              </span>
+                              {group.subtitle && (
+                                <span
+                                  className="group-subtitle editable-field"
+                                  contentEditable
+                                  suppressContentEditableWarning
+                                  onBlur={(e) => {
+                                    const newGroups = [...data.groups];
+                                    newGroups[gIdx].subtitle = e.currentTarget.textContent || '';
+                                    setData({ ...data, groups: newGroups });
+                                  }}
+                                >
+                                  {group.subtitle}
+                                </span>
+                              )}
+                              <button
+                                className="clear-subtitle-btn no-print"
+                                onClick={() => {
+                                  const newGroups = [...data.groups];
+                                  newGroups[gIdx].subtitle = newGroups[gIdx].subtitle ? '' : 'Mô tả nhóm';
+                                  setData({ ...data, groups: newGroups });
+                                }}
+                                title={group.subtitle ? "Xóa mô tả" : "Thêm mô tả"}
+                              >
+                                {group.subtitle ? '−' : '+'}
+                              </button>
                             </td>
                             <td className="scope-cell">
                               <ul className="scope-list">
                                 {group.items.map((item, iIdx) => (
-                                  <li
-                                    key={iIdx}
-                                    contentEditable
-                                    suppressContentEditableWarning
-                                    onBlur={(e) => {
-                                      const newGroups = [...data.groups];
-                                      newGroups[gIdx].items[iIdx].description = e.currentTarget.textContent || '';
-                                      setData({ ...data, groups: newGroups });
-                                    }}
-                                    className="editable-field"
-                                  >
-                                    {item.description}
+                                  <li key={iIdx} className="scope-item">
+                                    <span
+                                      contentEditable
+                                      suppressContentEditableWarning
+                                      onBlur={(e) => {
+                                        const newGroups = [...data.groups];
+                                        newGroups[gIdx].items[iIdx].description = e.currentTarget.textContent || '';
+                                        setData({ ...data, groups: newGroups });
+                                      }}
+                                      className="editable-field"
+                                    >
+                                      {item.description}
+                                    </span>
+                                    <button
+                                      className="delete-item-btn no-print"
+                                      onClick={() => {
+                                        const newGroups = [...data.groups];
+                                        newGroups[gIdx].items = newGroups[gIdx].items.filter((_, i) => i !== iIdx);
+                                        setData({ ...data, groups: newGroups });
+                                      }}
+                                      title="Xóa item này"
+                                    >×</button>
                                   </li>
                                 ))}
+                                <li className="add-item-row no-print">
+                                  <button
+                                    className="add-item-btn"
+                                    onClick={() => {
+                                      const newGroups = [...data.groups];
+                                      newGroups[gIdx].items.push({
+                                        no: newGroups[gIdx].items.length + 1,
+                                        description: 'Mô tả mới',
+                                        unit: 'Gói',
+                                        quantity: 1,
+                                        unitPrice: 0,
+                                        total: 0
+                                      });
+                                      setData({ ...data, groups: newGroups });
+                                    }}
+                                  >+ Thêm item</button>
+                                </li>
                               </ul>
                             </td>
                             <td
@@ -937,6 +993,27 @@ const App: React.FC = () => {
                         ))}
                       </tbody>
                     </table>
+                    <button
+                      className="add-group-btn no-print"
+                      onClick={() => {
+                        const newId = String(data.groups.length + 1).padStart(2, '0');
+                        const newGroups = [...data.groups, {
+                          id: newId,
+                          title: 'NHÓM DỊCH VỤ MỚI',
+                          subtitle: '',
+                          items: [{
+                            no: 1,
+                            description: 'Mô tả dịch vụ',
+                            unit: 'Gói',
+                            quantity: 1,
+                            unitPrice: 0,
+                            total: 0
+                          }],
+                          subtotal: 0
+                        }];
+                        setData({ ...data, groups: newGroups });
+                      }}
+                    >+ Thêm nhóm dịch vụ mới</button>
                   </div>
 
                   <section className="summary-section">
