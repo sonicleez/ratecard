@@ -145,7 +145,7 @@ const App: React.FC = () => {
     try {
       const { GoogleGenerativeAI } = await import('@google/generative-ai');
       const genAI = new GoogleGenerativeAI(apiKey);
-      const testModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+      const testModel = genAI.getGenerativeModel({ model: 'gemini-3-flash-preview' });
       const result = await testModel.generateContent('Hi');
       setApiKeyStatus(result.response.text() ? 'valid' : 'invalid');
     } catch { setApiKeyStatus('invalid'); }
@@ -168,7 +168,7 @@ const App: React.FC = () => {
     setInput('');
     setLoading(true);
     try {
-      const response = await chatWithAI(apiKey, userMsg, data, files, model);
+      const response = await chatWithAI(apiKey, userMsg, data, files, model, thinking);
       setMessages(prev => [...prev, { role: 'ai', content: response.message }]);
       if (response.updatedQuote) {
         setData(response.updatedQuote);
