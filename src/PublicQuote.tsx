@@ -4,6 +4,7 @@ import { supabase } from './supabase';
 import { formatCurrency } from './utils';
 import { MapPin, Mail, Phone, ChevronRight } from 'lucide-react';
 import type { QuoteData } from './types';
+import logoImg from './assets/logo.png';
 import './App.css';
 
 export const PublicQuote: React.FC = () => {
@@ -73,7 +74,7 @@ export const PublicQuote: React.FC = () => {
                 <div className="page-print">
                     <header className="quote-header">
                         <div className="brand-section">
-                            <img src="/src/assets/logo.png" alt="MODOS Logo" className="brand-logo" />
+                            <img src={logoImg} alt="MODOS Logo" className="brand-logo" />
                         </div>
                         <div className="company-details">
                             <h3>{data.companyInfo?.name || 'CÔNG TY CỔ PHẦN MODOS'}</h3>
@@ -113,6 +114,7 @@ export const PublicQuote: React.FC = () => {
                                 <tr>
                                     <th style={{ width: '40px' }}>NO.</th>
                                     <th style={{ width: '250px' }}>HẠNG MỤC (ITEMS)</th>
+                                    <th style={{ width: '60px' }}>S.LƯỢNG</th>
                                     <th>MÔ TẢ CÔNG VIỆC (JOB SCOPE)</th>
                                     <th style={{ width: '120px' }}>CHI PHÍ (VND)</th>
                                 </tr>
@@ -126,6 +128,9 @@ export const PublicQuote: React.FC = () => {
                                         <td className="group-title-cell">
                                             <strong>{group.title}</strong>
                                             <div className="group-subtitle">{group.subtitle}</div>
+                                        </td>
+                                        <td className="text-center qty-cell">
+                                            {group.items[0]?.quantity || 1}
                                         </td>
                                         <td className="scope-cell">
                                             <ul className="scope-list">

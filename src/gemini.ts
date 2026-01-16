@@ -160,15 +160,14 @@ export async function chatWithAI(
     userMessage: string,
     currentData: QuoteData,
     files: UploadedFile[] = [],
-    model: AIModel = 'flash',
-    thinkingLevel: ThinkingLevel = 'high'
+    model: AIModel = 'flash'
 ): Promise<AIResponse> {
     const genAI = new GoogleGenerativeAI(apiKey);
 
-    // Gemini 3 models
+    // Use stable Gemini 1.5 / 2.0 models
     const modelName = model === 'pro'
-        ? 'gemini-3-pro-preview'
-        : 'gemini-3-flash-preview';
+        ? 'gemini-1.5-pro'
+        : 'gemini-1.5-flash';
 
     const temperature = model === 'pro' ? 0.3 : 0.7;
 
@@ -176,11 +175,7 @@ export async function chatWithAI(
         model: modelName,
         generationConfig: {
             responseMimeType: "application/json",
-            temperature: temperature,
-            // @ts-ignore - Gemini 3 thinking config
-            thinkingConfig: {
-                thinkingLevel: thinkingLevel,
-            }
+            temperature: temperature
         }
     });
 
