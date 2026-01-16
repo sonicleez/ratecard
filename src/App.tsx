@@ -879,6 +879,7 @@ const App: React.FC = () => {
                         <tr>
                           <th className="text-center col-no">NO.</th>
                           <th className="col-item">HẠNG MỤC (ITEM)</th>
+                          <th className="text-center col-qty">S.LƯỢNG</th>
                           <th className="col-scope">MÔ TẢ CÔNG VIỆC (JOB SCOPE)</th>
                           <th className="text-right col-price">CHI PHÍ (VND)</th>
                         </tr>
@@ -935,6 +936,23 @@ const App: React.FC = () => {
                               >
                                 {group.subtitle ? '−' : '+'}
                               </button>
+                            </td>
+                            <td className="text-center qty-cell">
+                              <span
+                                contentEditable
+                                suppressContentEditableWarning
+                                onBlur={(e) => {
+                                  const val = parseInt(e.currentTarget.textContent || '1') || 1;
+                                  const newGroups = [...data.groups];
+                                  if (newGroups[gIdx].items.length > 0) {
+                                    newGroups[gIdx].items[0].quantity = val;
+                                  }
+                                  setData({ ...data, groups: newGroups });
+                                }}
+                                className="editable-field"
+                              >
+                                {group.items[0]?.quantity || 1}
+                              </span>
                             </td>
                             <td className="scope-cell">
                               <ul className="scope-list">

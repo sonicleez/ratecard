@@ -757,7 +757,17 @@
 }
 
 .quote-table-new th.col-price {
-  width: 120px;
+  width: 100px;
+}
+
+.quote-table-new th.col-qty {
+  width: 60px;
+}
+
+.qty-cell {
+  font-size: 11px;
+  font-weight: 600;
+  color: #1A1A1A;
 }
 
 .group-row-new {
