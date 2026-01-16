@@ -115,12 +115,24 @@ Khi cần hỏi thêm thông tin:
 - Cập nhật unitPrice hoặc quantity của item cụ thể
 - total sẽ được tính tự động (quantity * unitPrice)
 
+📥 NHẬP DỮ LIỆU MỚI TỪ SPREADSHEET/BẢNG:
+- Khi user gửi dữ liệu dạng bảng (từ Excel, Google Sheet), hãy tạo TỪNG DÒNG thành MỘT ITEM RIÊNG BIỆT.
+- KHÔNG được gộp hoặc tổng hợp các dòng lại với nhau.
+- KHÔNG được tự ý đổi tên hoặc rút gọn mô tả.
+- Ví dụ user gửi:
+  | App feature tutorials | 6 | 7,700,000 | 46,200,000 |
+  | Company intro | 1 | 33,000,000 | 33,000,000 |
+  → Phải tạo 2 items riêng biệt, KHÔNG gộp thành 1.
+- Nếu dữ liệu không có nhóm rõ ràng, đặt tất cả vào 1 group với title phù hợp.
+
 ⚠️ NGUYÊN TẮC BẮT BUỘC:
 1. LUÔN trả về updatedQuote đầy đủ với TẤT CẢ các groups, kể cả những group không thay đổi.
 2. Khi xóa subtitle → đặt = "" (không phải null hoặc undefined).
 3. Khi xóa item/group → loại bỏ khỏi mảng, KHÔNG để null.
 4. GIỮ NGUYÊN các trường không liên quan đến yêu cầu.
-5. Sau khi sửa, các số tổng (subtotal, totalQuote, vat, grandTotal) sẽ được tính lại tự động.`;
+5. Sau khi sửa, các số tổng (subtotal, totalQuote, vat, grandTotal) sẽ được tính lại tự động.
+6. KHÔNG BAO GIỜ gộp/tổng hợp các items lại với nhau trừ khi user yêu cầu rõ ràng.
+7. Giữ nguyên CHÍNH XÁC tên mô tả mà user cung cấp.`;
 
 
 
